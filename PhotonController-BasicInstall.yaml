@@ -1,0 +1,101 @@
+compute:
+  hypervisors:
+    esxi-1:
+      hostname: "photonesx1.photon.pigeonnuggets.com"
+      ipaddress: "192.168.88.50"
+      allowed-datastores: "PHOTONLUN1"
+      dns: "192.168.88.57"
+      credential:
+        username: "root"
+        password: "$ecret!123"
+    esxi-2:
+      hostname: "photonesx2.photon.pigeonnuggets.com"
+      ipaddress: "192.168.88.51"
+      allowed-datastores: "PHOTONLUN1"
+      dns: "192.168.88.57"
+      credential:
+        username: "root"
+        password: "$ecret!123"
+    esxi-3:
+      hostname: "photonesx3.photon.pigeonnuggets.com"
+      ipaddress: "192.168.88.52"
+      allowed-datastores: "PHOTONLUN1"
+      dns: "192.168.88.57"
+      credential:
+        username: "root"
+        password: "$ecret!123"
+lightwave:
+  domain: "photon.pigeonnuggets.com"
+  credential:
+    username: "administrator"
+    password: "$ecret!123!"
+  controllers:
+    LIGHTWAVE1:
+      site: "Brisbane"
+      appliance:
+        hostref: "esxi-1"
+        datastore: "PHOTONLUN1"
+        memoryMb: 2048
+        cpus: 2
+        enable-ssh-root-login: false
+        credential:
+          username: "root"
+          password: "$ecret!123!"
+        network-config:
+          type: "static"
+          hostname: "lightwave1.photon.pigeonnuggets.com"
+          ipaddress: "192.168.88.57"
+          network: "NAT=Photon Platform"
+          dns: "192.168.88.10"
+          ntp: "192.168.88.10"
+          netmask: "255.255.255.0"
+          gateway: "192.168.88.1"
+photon:
+  imagestore:
+    img-store-1:
+      datastore: "PHOTONLUN1"
+      enableimagestoreforvms: "true"
+  cloud:
+    hostref-1: "esxi-2"
+    hostref-2: "esxi-3"
+  administrator-group: "photon.pigeonnuggets.com\\CloudAdministrators"
+  controllers:
+    PHOTONCTRL1:
+      appliance:
+        hostref: "esxi-1"
+        datastore: "PHOTONLUN1"
+        memoryMb: 2048
+        cpus: 2
+        enable-ssh-root-login: false
+        credential:
+          username: "root"
+          password: "$ecret!123"
+        network-config:
+          type: "static"
+          hostname: "photonctlr1.photon.pigeonnuggets.com"
+          ipaddress: "192.168.88.55"
+          network: "NAT=Photon Platform"
+          netmask: "255.255.255.0"
+          dns: "192.168.88.57"
+          ntp: "192.168.88.10"
+          gateway: "192.168.88.1"
+loadBalancer:
+  PHOTONLB1:
+    appliance:
+        hostref: "esxi-1"
+        datastore: "PHOTONLUN1"
+        memoryMb: 2048
+        cpus: 2
+        enable-ssh-root-login: false
+        credential:
+          username: "root"
+          password: "$ecret!123"
+        network-config:
+          type: "static"
+          hostname: "photonlb.photon.pigeonnuggets.com"
+          ipaddress: "192.168.88.56"
+          network: "NAT=Photon Platform"
+          netmask: "255.255.255.0"
+          dns: "192.168.88.57"
+          ntp: "192.168.88.10"
+          gateway: "192.168.88.1"  
